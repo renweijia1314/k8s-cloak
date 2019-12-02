@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: keycloak-dep
+  namespace: keycloak
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: keycloak-dep
+    spec:
+      containers:
+      - name: keycloak
+        image: jboss/keycloak
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: KEYCLOAK_USER
+          value: admin
+        - name: KEYCLOAK_PASSWORD
+          value: admin123
+        - name: DB_VENDOR
+          value: mysql
+        - name: DB_ADDR
+          value: 10.133.92.226
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: keycloak
+        - name: DB_USER
+          value: root
+        - name: DB_PASSWORD
+          value: root_!333
+        - name: JDBC_PARAMS
+          value: "useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8"
